@@ -1,0 +1,17 @@
+{
+    "name": "benepanda-renderer",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "dev": "ts-node test.ts"
+    },
+    "dependencies": {
+        "@types/html-pdf": "^2.2.0",
+        "@types/pdfkit": "^0.10.5",
+        "convert-html-to-pdf": "^1.0.1",
+        "html-pdf": "^2.2.0",
+        "pdfjam": "^0.1.0",
+        "pdfkit": "^0.11.0"
+    }
+}
