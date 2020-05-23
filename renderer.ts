@@ -20,13 +20,10 @@ export async function renderPDF(paper: Paper): Promise<string> {
     console.time('start')
 
     const htmlString = prefix + paper.Table01.map((e) => `
-        ${e.EXE_RANGE ? `<p class="range">${e.EXE_RANGE}</p>` : ''}
-
-         ${e.EXE_HTML ? `<p>${e.EXE_HTML}</p>` : ''}
-
-                         <p class="number">${e.IBQ_NUM}.</p>
-                          
-         ${e.QST_HTML ? `<p class="number">${e.QST_HTML}</p>` : ''}
+        ${e.EXE_RANGE ? `<p class="range"> ${e.EXE_RANGE} </p>` : ''}
+        ${e.EXE_HTML ? `<p> ${e.EXE_HTML} </p>` : ''}
+                         <p class="number"> ${e.IBQ_NUM}. </p>
+        ${e.QST_HTML ? `<p class="number"> ${e.QST_HTML} </p>` : ''}
         `).join('').split(/width=".*?"/).join('').split('&nbsp;&nbsp;&nbsp;').join(' ')
 
     writeFileSync('./index.html', htmlString)
