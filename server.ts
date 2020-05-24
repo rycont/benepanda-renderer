@@ -28,4 +28,7 @@ router.get('/pdf/:url', async (ctx) => {
 app
     .use(router.routes())
     .use(router.allowedMethods())
-app.listen(8080)
+
+const port = process.argv[2]
+
+app.listen(port, () => console.log(`Server is Running on ${port}!`))

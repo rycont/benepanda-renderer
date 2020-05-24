@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "dev": "ts-node test.ts"
+        "dev": "tsc && node server.js 8080"
     },
     "devDependencies": {
         "@types/html-pdf": "^2.2.0",
