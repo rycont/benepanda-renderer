@@ -33,4 +33,4 @@ app
 
 const port = process.argv[2]
 
-app.listen(port, () => console.log(`Server is Running on ${port}, PDFJam is on ${pdfjam}`))
+app.listen(port, () => console.log(`Server is Running on ${port}, PDFJam is on ${pdfjamLocation}`))
