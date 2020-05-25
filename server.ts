@@ -30,5 +30,6 @@ app
     .use(router.allowedMethods())
 
 const port = process.argv[2]
+const pdfjam = process.argv[3]
 
-app.listen(port, () => console.log(`Server is Running on ${port}!`))
+app.listen(port, () => console.log(`Server is Running on ${port}, PDFJam is on ${pdfjam}`))
