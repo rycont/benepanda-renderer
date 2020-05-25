@@ -16,7 +16,7 @@ const prefix = readFileSync('./prefix.html', {
     encoding: "utf-8"
 })
 
-export async function renderPDF(paper: Paper, pdfjamLocation: string): Promise<string> {
+export async function renderPDF(paper: Paper, pdfjamLocation: string = 'pdfjam'): Promise<string> {
     console.time('start')
 
     const htmlString = prefix + paper.Table01.map((e) => `

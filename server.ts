@@ -10,11 +10,13 @@ const app = new Koa()
 const router = new Router()
 app.use(bodyParser());
 
-const pdfjamLocation = process.argv[3] || 'pdfjam'
+const port = process.env.port
+
+console.log(process.argv)
 
 router.post('/renderPdf', async (ctx, next) => {
     console.log('ㅁ.. 뭔가 들어옴..', ctx.request.body)
-    const filename = await renderPDF(ctx.request.body, pdfjamLocation)
+    const filename = await renderPDF(ctx.request.body)
     ctx.body = {
         filename
     }
@@ -31,6 +33,5 @@ app
     .use(router.routes())
     .use(router.allowedMethods())
 
-const port = process.argv[2]
 
 app.listen(port, () => console.log(`Server is Running on ${port}, PDFJam is on ${pdfjamLocation}`))
