@@ -34,4 +34,4 @@ app
     .use(router.allowedMethods())
 
 
-app.listen(port, () => console.log(`Server is Running on ${port}, PDFJam is on ${pdfjamLocation}`))
+app.listen(port, () => console.log(`Server is Running on ${port}`))
