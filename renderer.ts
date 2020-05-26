@@ -3,9 +3,17 @@ import pdf from "html-pdf";
 import { exec } from "child_process";
 import { writeFileSync, unlink, readFileSync } from 'fs'
 import { promisify } from 'util'
+import admin from 'firebase-admin';
+import firebaseAccountCredentials from "./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json";
+
+const serviceAccount = firebaseAccountCredentials as admin.ServiceAccount
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://benepanda-renderer.firebaseio.com"
+})  
 
 const pexec = promisify(exec)
-const pcreate = promisify(pdf.create)
 const punlink = promisify(unlink)
 
 function makeRandomString(length: number): string {
@@ -36,8 +44,13 @@ export async function renderPDF(paper: Paper, pdfjamLocation: string = 'pdfjam')
             base: "http://q.benedu.co.kr",
         }).toFile(`./TEMP_${filename}.pdf`, res)))()
 
-    const { stderr: jamErr, stdout: output } = await pexec(`${pdfjamLocation} --nup 2x1 --scale 0.95 ./TEMP_${filename}.pdf --outfile ./pdf/${filename}.pdf`)
+    const { stdout: output } = await pexec(`${pdfjamLocation} --nup 2x1 --scale 0.95 ./TEMP_${filename}.pdf --outfile ./pdf/${filename}.pdf`)
     console.log(output)
     await punlink(`./TEMP_${filename}.pdf`)
-    return `./pdf/${filename}.pdf`
+    const bucket = admin.storage().bucket('benepanda-renderer.appspot.com');
+    const uploaded = await bucket.upload(`./pdf/${filename}.pdf`, {
+        destination: `${filename}.pdf`
+    })
+    console.log(uploaded[0])
+    return (`https://firebasestorage.googleapis.com/v0/b/benepanda-renderer.appspot.com/o/${filename}.pdf?alt=media`)
 }
