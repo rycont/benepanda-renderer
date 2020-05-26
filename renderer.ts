@@ -3,16 +3,7 @@ import pdf from "html-pdf";
 import { exec } from "child_process";
 import { writeFileSync, unlink, readFileSync } from 'fs'
 import { promisify } from 'util'
-import admin from 'firebase-admin';
-// import firebaseAccountCredentials from "./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json";
 
-// const serviceAccount = firebaseAccountCredentials as admin.ServiceAccount
-
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount),
-//     databaseURL: "https://benepanda-renderer.firebaseio.com"
-// })  
-admin.initializeApp()
 const pexec = promisify(exec)
 const punlink = promisify(unlink)
 
@@ -45,11 +36,8 @@ export async function renderPDF(paper: Paper, pdfjamLocation: string = 'pdfjam')
         }).toFile(`./TEMP_${filename}.pdf`, res)))()
 
     await pexec(`${pdfjamLocation} --nup 2x1 --scale 0.95 ./TEMP_${filename}.pdf --outfile ./pdf/${filename}.pdf`)
+    await pexec(`convert ./pdf/${filename}.pdf[0] ./thumbnail/${filename}_thumbnail.png`)
     await punlink(`./TEMP_${filename}.pdf`)
-    const bucket = admin.storage().bucket('benepanda-renderer.appspot.com');
-    await bucket.upload(`./pdf/${filename}.pdf`, {
-        destination: `${filename}.pdf`
-    })  
-    console.log('made a file: ', filename)
-    return (`https://firebasestorage.googleapis.com/v0/b/benepanda-renderer.appspot.com/o/${filename}.pdf?alt=media`)
+    console.log('Created PDF and thumbnail: ', filename)
+    return filename
 }

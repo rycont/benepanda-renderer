@@ -1,10 +1,8 @@
 import Koa from 'koa'
 import Router from 'koa-router'
-import send from 'koa-send'
 import bodyParser from 'koa-bodyparser'
 
 import { renderPDF } from './renderer'
-import { existsSync } from 'fs'
 
 const app = new Koa()
 const router = new Router()
@@ -12,12 +10,11 @@ app.use(bodyParser());
 
 const port = process.env.port || 8080
 
-console.log(process.argv)
-
-router.post('/renderPdf', async (ctx, next) => {
-    const uri = await renderPDF(ctx.request.body)
+router.post('/renderPdf', async (ctx) => {
+    const filename = await renderPDF(ctx.request.body)
     ctx.body = {
-        uri
+        pdf: `${filename}.pdf`,
+        thumbnail: `${filename}_thumbnail.png`
     }
 })
 
