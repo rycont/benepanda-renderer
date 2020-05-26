@@ -44,7 +44,7 @@ export async function renderPDF(paper: Paper, pdfjamLocation: string = 'pdfjam')
             base: "http://q.benedu.co.kr",
         }).toFile(`./TEMP_${filename}.pdf`, res)))()
 
-    const { stdout: output } = await pexec(`${pdfjamLocation} --nup 2x1 --scale 0.95 ./TEMP_${filename}.pdf --outfile ./pdf/${filename}.pdf`)
+    await pexec(`${pdfjamLocation} --nup 2x1 --scale 0.95 ./TEMP_${filename}.pdf --outfile ./pdf/${filename}.pdf`)
     await punlink(`./TEMP_${filename}.pdf`)
     const bucket = admin.storage().bucket('benepanda-renderer.appspot.com');
     await bucket.upload(`./pdf/${filename}.pdf`, {
