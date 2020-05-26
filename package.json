@@ -11,7 +11,6 @@
         "@types/koa": "^2.11.3",
         "@types/koa-bodyparser": "^4.3.0",
         "@types/koa-router": "^7.4.1",
-        "@types/koa-send": "^4.1.2",
         "typescript": "^3.9.3"
     },
     "dependencies": {
@@ -19,7 +18,6 @@
         "html-pdf": "^2.2.0",
         "koa": "^2.12.0",
         "koa-bodyparser": "^4.3.0",
-        "koa-router": "^8.0.8",
-        "koa-send": "^5.0.0"
+        "koa-router": "^8.0.8"
     }
 }
