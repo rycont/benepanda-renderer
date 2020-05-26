@@ -50,5 +50,6 @@ export async function renderPDF(paper: Paper, pdfjamLocation: string = 'pdfjam')
     await bucket.upload(`./pdf/${filename}.pdf`, {
         destination: `${filename}.pdf`
     })
+    console.log('made a file: ', filename)
     return (`https://firebasestorage.googleapis.com/v0/b/benepanda-renderer.appspot.com/o/${filename}.pdf?alt=media`)
 }
