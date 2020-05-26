@@ -10,7 +10,7 @@ const app = new Koa()
 const router = new Router()
 app.use(bodyParser());
 
-const port = process.env.port
+const port = process.env.port || 8080
 
 console.log(process.argv)
 
@@ -20,13 +20,6 @@ router.post('/renderPdf', async (ctx, next) => {
     ctx.body = {
         filename
     }
-})
-
-router.get('/pdf/:url', async (ctx) => {
-    const { url } = ctx.params
-    console.log(url, url.length, url.length === 24, url.slice(-4) === '.pdf')
-    if (url.length === 24 && url.slice(-4) === '.pdf' && existsSync(`./pdf/${ctx.params.url}`)) await send(ctx, `./pdf/${ctx.params.url}`);
-    else ctx.body = '지랄마'
 })
 
 app
