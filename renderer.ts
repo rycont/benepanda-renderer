@@ -45,12 +45,10 @@ export async function renderPDF(paper: Paper, pdfjamLocation: string = 'pdfjam')
         }).toFile(`./TEMP_${filename}.pdf`, res)))()
 
     const { stdout: output } = await pexec(`${pdfjamLocation} --nup 2x1 --scale 0.95 ./TEMP_${filename}.pdf --outfile ./pdf/${filename}.pdf`)
-    console.log(output)
     await punlink(`./TEMP_${filename}.pdf`)
     const bucket = admin.storage().bucket('benepanda-renderer.appspot.com');
-    const uploaded = await bucket.upload(`./pdf/${filename}.pdf`, {
+    await bucket.upload(`./pdf/${filename}.pdf`, {
         destination: `${filename}.pdf`
     })
-    console.log(uploaded[0])
     return (`https://firebasestorage.googleapis.com/v0/b/benepanda-renderer.appspot.com/o/${filename}.pdf?alt=media`)
 }

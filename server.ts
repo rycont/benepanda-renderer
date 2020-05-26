@@ -15,11 +15,8 @@ const port = process.env.port || 8080
 console.log(process.argv)
 
 router.post('/renderPdf', async (ctx, next) => {
-    console.log('ㅁ.. 뭔가 들어옴..', ctx.request.body)
     const filename = await renderPDF(ctx.request.body)
-    ctx.body = {
-        filename
-    }
+    ctx.body = filename
 })
 
 app
