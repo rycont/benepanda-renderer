@@ -8,7 +8,6 @@ ENV PATH /usr/local/texlive/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr
 ENV port 8080
 RUN chmod 777 ./
 RUN mkdir pdf
-ADD ./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json ./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json
+# ADD ./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json ./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json
 ENTRYPOINT npm run dev
 EXPOSE 8080
-#깡은 과학이다
