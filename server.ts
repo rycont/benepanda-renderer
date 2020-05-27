@@ -1,15 +1,20 @@
 import Koa from 'koa'
 import Router from 'koa-router'
 import bodyParser from 'koa-bodyparser'
+import {existsSync} from 'fs'
 
 import { renderPDF } from './renderer'
 import admin from 'firebase-admin';
 import { Paper } from './type';
 
-import("./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json").then(firebaseAccountCredentials => admin.initializeApp({
-    credential: admin.credential.cert(firebaseAccountCredentials as admin.ServiceAccount),
-    databaseURL: "https://benepanda-renderer.firebaseio.com"
-})).catch(() => admin.initializeApp())
+// if(existsSync("./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json")) {
+//     import("./benepanda-renderer-firebase-adminsdk-1cuuc-8ebc257102.json").then(firebaseAccountCredentials => admin.initializeApp({
+//         credential: admin.credential.cert(firebaseAccountCredentials as admin.ServiceAccount),
+//         databaseURL: "https://benepanda-renderer.firebaseio.com"
+//     }))
+// } else {
+    admin.initializeApp()
+// }
 
 // const serviceAccount = firebaseAccountCredentials as admin.ServiceAccount
 
